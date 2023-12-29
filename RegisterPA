@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>سایت آجاکس</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/persian-date@0.1.8/dist/persian-date.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@0.4.5/dist/js/ppersian-datepicker-0.4.5.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@0.4.5/dist/css/persian-datepicker-0.4.5.min.css">
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="main.css">
+
+    <script>
+        const persianDateInput = document.querySelector('.persian-date');
+
+        // تنظیم دیت‌پیکر فارسی
+        $(document).ready(function() {
+            persianDateInput.pDatepicker({
+                format: 'YYYY/MM/DD',
+                observer: true,
+                altField: '.observer-example-alt',
+                altFormat: 'LLLL',
+                initialValue: false,
+                autoClose: true,
+                calendarType: 'persian',
+            });
+        });
+    </script>
+</head>
+
+<body style="direction: rtl;">
+    
+    <div class="container-fluid">
+        <div class="row">
+            <!-- فرم ثبت -->
+            <div class="col-md-4">
+                <h2>ثبت بیمار</h2>
+                <form id="submitForm" action="process.php" method="post">
+                    <div class="form-group">
+                        <label for="name">نام کامل:</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hospital">بیمارستان:</label>
+                        <input type="text" class="form-control" id="hospital" name="hospital" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="surgeryType">نوع عمل:</label>
+                        <input type="text" class="form-control" id="surgeryType" name="surgeryType" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="surgeryDate">تاریخ عمل:</label>
+                        <input type="text" class="form-control persian-date" id="surgeryDate" name="surgeryDate" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">ثبت</button>
+                </form>
+            </div>
+            
+            <!-- جدول نمایش اطلاعات -->
+            <div class="col-md-8">
+                <h2>اطلاعات بیماران</h2>
+                <form id="searchForm" action="search.php" method="post">
+                    <div class="form-group">
+                        <label for="searchName">نام کامل:</label>
+                        <input type="text" class="form-control" id="searchName" name="searchName">
+                    </div>
+                    <div class="form-group">
+                        <label for="searchHospital">بیمارستان:</label>
+                        <input type="text" class="form-control" id="searchHospital" name="searchHospital">
+                    </div>
+                    <div class="form-group">
+                        <label for="searchSurgeryType">نوع عمل:</label>
+                        <input type="text" class="form-control" id="searchSurgeryType" name="searchSurgeryType">
+                    </div>
+                    <div class="form-group">
+                        <label for="searchSurgeryDate">تاریخ عمل:</label>
+                        <input type="text" class="form-control persian-date" id="searchSurgeryDate" name="searchSurgeryDate">
+                    </div>
+                    <button type="submit" class="btn btn-success">جستجو</button>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-secondary" id="showAll">نمایش همه بیماران</button>
+                    </div>
+                </form>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>نام کامل</th>
+                            <th>بیمارستان</th>
+                            <th>نوع عمل</th>
+                            <th>تاریخ عمل</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTable">
+                        <!-- نتایج جستجو یا تمام بیماران -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
